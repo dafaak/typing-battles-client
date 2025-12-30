@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { GameState } from "../interfaces/GameStatus.ts";
 
 interface PartieState {
   name?: string,
-  state?: 'loby' | 'running' | 'ending' | 'preparing',
+  state?: GameState,
   text?: string
 }
 

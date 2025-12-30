@@ -3,7 +3,7 @@ import { Loby } from './pages/Loby';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { useEffect } from "react";
-import { GameStatus } from "./interfaces/GameStatus.ts";
+import { GameState, GameStatus } from "./interfaces/GameStatus.ts";
 import { setPlayers } from "./redux/playersSlice.ts";
 import { useSocket } from "./context/SocketContext.tsx";
 import { useDispatch } from "react-redux";
@@ -27,19 +27,15 @@ function App() {
       dispatch(setPartie({state: gameStatus.state, name: gameStatus.name}));
       dispatch(setPlayers(gameStatus.players));
       console.log(gameStatus.state);
-      if (gameStatus.state === 'ready') {
+      if (gameStatus.state === GameState.Ready) {
         // Usamos optional chaining y fallback para evitar errores
         dispatch(setText(gameStatus.targetString?.trim() || ""));
       }
 
-      if (gameStatus.state === 'running') {
+      if (gameStatus.state === GameState.Running) {
         navigate('/game');
       }
 
-      if (gameStatus.state === 'finished') {
-        // Aquí podrías despachar un estado de 'juego bloqueado'
-
-      }
     }
 
     function onJoinSuccess(data: string) {

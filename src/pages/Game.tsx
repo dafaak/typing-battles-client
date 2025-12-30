@@ -4,6 +4,7 @@ import { RootState } from '../redux/store';
 import { useEffect, useState } from "react";
 import { updatePlayerIsReady, updatePlayerProgress } from "../redux/playerDataSlice.ts";
 import { useNavigate } from "react-router-dom";
+import { GameState } from "../interfaces/GameStatus.ts";
 
 
 export function Game() {
@@ -26,7 +27,7 @@ export function Game() {
         event: 'update_user_state',
         message: {
           room: player?.room || "",
-          conn_id: player.conn_id || "",
+          conn_id: player?.conn_id || "",
           is_ready: false
         }
       }));
@@ -49,15 +50,15 @@ export function Game() {
     e.preventDefault();
     const value = e.target.value;
     setUserInput(value);
-
-    const hits = calculateCorrectChars(value, partieState.text);
-    const progress = Math.round((hits / partieState.text.length) * 100);
+    const targetText = partieState.text || '';
+    const hits = calculateCorrectChars(value, targetText);
+    const progress = Math.round((hits / targetText.length || 1) * 100);
 
     socket.emit('message', JSON.stringify({
       event: 'update_user_progress',
       message: {
-        room: player.room,
-        conn_id: player.conn_id,
+        room: player?.room || '',
+        conn_id: player?.conn_id || '',
         progress: progress
       }
     }));
@@ -74,8 +75,8 @@ export function Game() {
 
   return (
       <>
-        <h1 className='lg:text-5xl text-2xl'>🗡️Game: {player.room}🗡️</h1>
-        <h3 className='py-5  text-2xl'>{player.name} type as fast as you can!</h3>
+        <h1 className='lg:text-5xl text-2xl'>🗡️Game: {player?.room}🗡️</h1>
+        <h3 className='py-5  text-2xl'>{player?.name} type as fast as you can!</h3>
 
         <div className='flex justify-between  mt-10  px-4'>
           <table className='table-fixed bg-cyan-100/10 '>
@@ -121,7 +122,7 @@ export function Game() {
           <div className='mt-10 px-4 py-6 border rounded-xl border-green-500/50 bg-slate-900'>
             {/* 'whitespace-pre-wrap' es vital para que los espacios cuenten visualmente */}
             <p className='text-2xl font-mono whitespace-pre-wrap'>
-              {targetText.split('').map((char, index) => {
+              {targetText && targetText.split('').map((char, index) => {
                 let color = 'text-gray-500';
                 let underline = '';
 
@@ -143,7 +144,7 @@ export function Game() {
 
           <input
               className='mt-5 w-full p-4 rounded-xl'
-              disabled={player.progress === 100 || (partieState.state === 'finished' || partieState.state === 'loby')}
+              disabled={(player && player.progress === 100) || (partieState.state === GameState.Finished || partieState.state === GameState.Loby)}
               type="text"
               autoFocus
               value={userInput}
@@ -152,9 +153,9 @@ export function Game() {
           />
         </div>
 
-        {(partieState.state === 'finished' || partieState.state === 'loby') && <h1>Game Over</h1>}
+        {(partieState.state === GameState.Finished || partieState.state === GameState.Loby) && <h1>Game Over</h1>}
 
-        {(partieState.state === 'finished' || partieState.state === 'loby') && <button className='border border-blue-500/50 text-blue-500 mt-5 py-3 px-6 rounded
+        {(partieState.state === GameState.Finished || partieState.state === GameState.Loby) && <button className='border border-blue-500/50 text-blue-500 mt-5 py-3 px-6 rounded
                  hover:-translate-y-0.5
                  hover:shadow-[0_0_35px_rgba(59,130,246,1)]
                   hover:bg-blue-500/10' onClick={goBackToLoby}>Loby
