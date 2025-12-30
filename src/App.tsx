@@ -56,13 +56,13 @@ function App() {
   }, [socket, dispatch, navigate]); // Añade 'navigate' a las dependencias
 
   return (
-      <HashRouter>
+
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/loby" element={<Loby/>}/>
           <Route path="/game" element={<Game/>}/>
         </Routes>
-      </HashRouter>
+
   )
 }
 
