@@ -1,6 +1,6 @@
 import './App.css'
 import { Loby } from './pages/Loby';
-import { HashRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter, HashRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { useEffect } from "react";
 import { GameState, GameStatus } from "./interfaces/GameStatus.ts";
@@ -56,13 +56,13 @@ function App() {
   }, [socket, dispatch, navigate]); // Añade 'navigate' a las dependencias
 
   return (
-      <Router>
+      <BrowserRouter basename='/typing-battles-client'>
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/loby" element={<Loby/>}/>
           <Route path="/game" element={<Game/>}/>
         </Routes>
-      </Router>
+      </BrowserRouter>
   )
 }
 
