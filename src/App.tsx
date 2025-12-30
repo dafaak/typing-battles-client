@@ -1,6 +1,6 @@
 import './App.css'
 import { Loby } from './pages/Loby';
-import { BrowserRouter, HashRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter,  Route, Routes, useNavigate } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { useEffect } from "react";
 import { GameState, GameStatus } from "./interfaces/GameStatus.ts";
