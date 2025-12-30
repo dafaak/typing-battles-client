@@ -43,12 +43,15 @@ export function Loby() {
       <>
         <h1 className='text-5xl'>Loby</h1>
         <h3 className='py-5 text-2xl'>Hi, {player && player.name} </h3>
-        <button className='border border-green-500/50 text-green-500 py-3 px-6 rounded
+        <div className='flex justify-center'>
+          <button className='border   border-green-500/50 text-green-500 py-3 px-6 rounded
                 font-medium transition-all duration-300
                  hover:-translate-y-0.5
                  hover:shadow-[0_0_35px_rgba(16,185,129,0.8)]
                   hover:bg-green-500/10' onClick={handleReadyStatus}>{player?.is_ready ? 'Not ready' : 'Ready'}
-        </button>
+          </button>
+        </div>
+
         <div className='flex flex-col text-left rounded border  mt-10 border-green-500/50 '>
           <table className='table-fixed bg-cyan-100/10 '>
             <thead className=' text-2xl text-green-500'>
@@ -84,11 +87,15 @@ export function Loby() {
         </div>
 
 
-        {partieState === 'ready' && <button className='border border-blue-500/50 text-blue-500 mt-5 py-3 px-6 rounded
+        {partieState === 'ready' &&
+            <div className='flex justify-center'>
+                <button className='border border-blue-500/50 text-blue-500 mt-5 py-3 px-6 rounded
                  hover:-translate-y-0.5
                  hover:shadow-[0_0_35px_rgba(59,130,246,1)]
                   hover:bg-blue-500/10' onClick={startGame}>{player?.is_ready ? 'Start Game' : 'Ready'}
-        </button>}
+                </button>
+            </div>
+            }
       </>
   );
 }

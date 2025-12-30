@@ -28,7 +28,7 @@ export const Home = () => {
         setShowForm(true);
     };
 
-    return <div className="fixed inset-0 bg-black  flex flex-col items-center justify-center text-gray-100 ">
+    return <div className="fixed inset-0 bg-black  flex flex-col items-center justify-center text-gray-100 px-4">
         <div className="mb-4 text-4xl font-mono font-bold">
             {text} <span className="animate-blink ml-1">|</span>
         </div>
@@ -36,9 +36,9 @@ export const Home = () => {
             <JoinForm></JoinForm>
         </div>}
         {!showForm && <div>
-            <button className="border border-green-500/50 text-green-500 py-3 px-6 rounded 
+            <button className="border border-green-500/50 text-green-500 py-3 px-6 rounded
                 font-medium transition-all duration-300
-                 hover:-translate-y-0.5 
+                 hover:-translate-y-0.5
                  hover:shadow-[0_0_35px_rgba(16,185,129,0.8)]
                   hover:bg-green-500/10" onClick={handleJoinClick}>JOIN
             </button>
