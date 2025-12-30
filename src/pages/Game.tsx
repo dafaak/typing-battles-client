@@ -20,13 +20,13 @@ export function Game() {
 
   useEffect(() => {
 
-    if (partieState.state === 'finished') {
+    if (partieState.state as string === 'finished') {
       dispatch(updatePlayerIsReady({value: false}));
       socket.emit('message', JSON.stringify({
         event: 'update_user_state',
         message: {
-          room: player.room,
-          conn_id: player.conn_id,
+          room: player?.room || "",
+          conn_id: player.conn_id || "",
           is_ready: false
         }
       }));
@@ -34,7 +34,7 @@ export function Game() {
 
   }, [partieState]);
 
-  const calculateCorrectChars = (input, originalText) => {
+  const calculateCorrectChars = (input: string, originalText: string) => {
     let correctCount = 0;
 
     for (let i = 0; i < input.length; i++) {
@@ -45,7 +45,7 @@ export function Game() {
     return correctCount;
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const value = e.target.value;
     setUserInput(value);
