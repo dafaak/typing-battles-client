@@ -86,7 +86,7 @@ export function Game() {
   };
 
   return (
-      <div className="min-h-screen bg-slate-950 text-white p-4">
+      <div className="min-h-screen  w-full  text-white m-0 p-4">
         <h1 className='lg:text-5xl text-2xl text-center mb-4'>🗡️ Game: {player?.room} 🗡️</h1>
         <h3 className='py-5 text-2xl text-center text-blue-400'>{player?.name}, type as fast as you can!</h3>
 
